@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import Axios from "axios";
-import NasaPhoto from "./components/NasaPhoto";
+import React from "react";
 
 const dummyData = {
   copyright: "Kimberly Sibbald",
@@ -11,18 +8,15 @@ const dummyData = {
   hdurl: "https://apod.nasa.gov/apod/image/2304/CTB1_Sibbald_6209.jpg",
   title: "The Medulla Nebula Supernova Remnant",
 };
+const NasaPhoto = (props) => {
+  return (
+    <div className="Nasa-Photo-Wrapper">
+      <h3>{props.photo.title}</h3>
+      <p>{props.photo.date}</p>
+      <img src={props.photo.hdurl}></img>
+      <p>{props.photo.explanation}</p>
+    </div>
+  );
+};
 
-function App() {
-  const [data, setData] = useState();
-
-  useEffect(() => {
-    Axios.get("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-  return <div className="App">{data && <NasaPhoto photo={data} />}</div>;
-}
-
-export default App;
+export default NasaPhoto;
